@@ -1,14 +1,31 @@
 from functions import *
 
 flag = True
+correo = ''
+pw =''
 while(flag):
     print("Bienvenido!!\n")
-    print("Este programa hace ataques de fuerza bruta\n")
     print("Seleccione una opcion\n")
-    print("1) Realizar ataque\n2) Salir\n")
+    print("1) Crear cuenta\n2) Inicio Sesión\n3) Reestablecer contraseña\n4) Modificar contraseña\n5)Realizar ataque\n6) Salir\n")
     opcion = input()
-
     if(opcion == '1'):
+        print("Su contraseña se creará de forma aleatoria")
+        correo = input("\nIngrese el correo de usuario:\n")
+        correo, pw = registro_spider(correo)
+    elif(opcion == '2'):
+        inicio_spider(correo, pw)
+    elif(opcion == '3'):
+        reestablecer_spider()
+    elif(opcion == '4'):
+        if(correo == '' and pw == ''):
+            correo = input("\nIngrese el correo de usuario:\n")
+            pw = input("\nIngrese contraseña:\n")
+        elif(correo != '' and pw == ''):
+            pw = input("\nIngrese contraseña:\n")
+        elif(correo == '' and pw != ''):
+            correo = input("\nIngrese el correo de usuario:\n")
+        cambiar_pw(correo ,pw)
+    elif(opcion == '5'):
         correo = input("\nIngrese el correo de usuario:\n")
         intentos = int(input("Ingrese la cantidad de intentos:\n"))
         print("Que página desea atacar:\n")
@@ -23,7 +40,7 @@ while(flag):
             print("Opcion invalida")
             continue
         
-    elif(opcion == '2'):
+    elif(opcion == '6'):
         flag = False
     else:
         print("Seleccione una opcion valida\n")
