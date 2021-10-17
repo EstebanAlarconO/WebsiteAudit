@@ -23,11 +23,19 @@ while(flag):
             continue
     elif(opcion == '2'):
         pagina = input("1) spider.cl\n2) atmosferasport.es\n")
+        if(correo == '' and pw == ''):
+            correo = input("\nIngrese el correo de usuario:\n")
+            pw = input("\nIngrese contraseña:\n")
+        elif(correo != '' and pw == ''):
+            pw = input("\nIngrese contraseña:\n")
+        elif(correo == '' and pw != ''):
+            correo = input("\nIngrese el correo de usuario:\n")
+        
         if (pagina == '1'):
             inicio_spider(correo, pw)
 
         elif(pagina == '2'):
-            #inicio_atmosferasport(correo,intentos)
+            inicio_atmosferasport(correo,pw)
             continue
         else:
             print("Opcion invalida")
@@ -62,8 +70,8 @@ while(flag):
             cambiarPW_spider(correo, pw)
 
         elif(pagina == '2'):
-            #cambiarPW_atmosferasport(correo,intentos)
-            continue
+            print("Su nueva contraseña es: ", cambiarPW_atmosferasport(correo,pw))
+
         else:
             print("Opcion invalida")
             continue
